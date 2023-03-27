@@ -1,3 +1,6 @@
+client:
+  post:
+    baseUrl: http://localhost
 server:
   port: 8091
 spring:
@@ -11,3 +14,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: BASIC

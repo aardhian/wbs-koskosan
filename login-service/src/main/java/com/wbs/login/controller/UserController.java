@@ -25,4 +25,10 @@ public class UserController {
         User user = userService.getUserByUsernameAndPassword(username, password);
         return user;
     }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable("id") Long userKey) {
+        log.info("Inside getUserById Controller");
+        return userService.getUserById(userKey);
+    }
 }

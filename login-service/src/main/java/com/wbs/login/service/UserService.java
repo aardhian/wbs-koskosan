@@ -21,4 +21,9 @@ public class UserService {
         log.info("Inside getUserByUsernameAndPassword service");
         return userRepository.getUserByUsernameAndPassword(username, password);
     }
+
+    public User getUserById(Long userKey) {
+        log.info("Inside getUserById Service");
+        return userRepository.findById(userKey).get();
+    }
 }

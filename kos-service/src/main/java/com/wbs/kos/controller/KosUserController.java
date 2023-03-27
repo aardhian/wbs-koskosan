@@ -1,5 +1,7 @@
 package com.wbs.kos.controller;
 
+import com.wbs.kos.feign.KosGuestFeign;
+import com.wbs.kos.model.KosGuest;
 import com.wbs.kos.model.KosUser;
 import com.wbs.kos.service.KosUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,4 +26,5 @@ public class KosUserController {
         log.info("Inside getKosUserById Controller");
         return kosUserService.getKosUserById(userKey);
     }
+
 }

@@ -1,9 +1,7 @@
 package com.wbs.kos.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.wbs.kos.model.dto.KosGuestDto;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +18,6 @@ public class KosUser {
     private String password;
     private Boolean active;
     private Long guestKey;
+    @Transient
+    private KosGuestDto kosGuestDto;
 }

@@ -21,7 +21,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("Inside loadUserByUsername JwtUserDetailsService username = "+username);
-        KosUser kosUser = kosUserRepository.findByUsername(username);
+        KosUser kosUser = kosUserRepository.findByUsernameAndActiveTrue(username);
         log.info("kosUser.username = "+kosUser.getUsername());
         if (kosUser != null && kosUser.getUsername().equals(username)) {
             /*return new User("randomuser123",

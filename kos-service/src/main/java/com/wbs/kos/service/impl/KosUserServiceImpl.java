@@ -33,7 +33,7 @@ public class KosUserServiceImpl implements KosUserService {
     @Override
     public KosUser getKosUserByUsername(String username) {
         log.info("Inside getKosUserByUsername Service");
-        KosUser kosUser = kosUserRepository.findByUsername(username);
+        KosUser kosUser = kosUserRepository.findByUsernameAndActiveTrue(username);
         KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestById(kosUser.getGuestKey());
         kosUser.setKosGuestDto(kosGuestDto);
         return kosUser;

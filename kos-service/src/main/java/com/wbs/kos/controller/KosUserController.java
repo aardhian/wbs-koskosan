@@ -5,6 +5,7 @@ import com.wbs.kos.service.KosUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,9 +15,14 @@ public class KosUserController {
     @Autowired
     private KosUserService kosUserService;
 
-    @PostMapping("/")
+    @PostMapping("/register")
     public KosUser saveKosUser(@RequestBody KosUser kosUser) {
         log.info("Inside saveKosUser Controller");
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encryptedPassword = kosUser.getPassword().trim().isEmpty()? "" : encoder.encode(kosUser.getPassword());
+        kosUser.setPassword(encryptedPassword);
+
         return kosUserService.saveKosUser(kosUser);
     }
 

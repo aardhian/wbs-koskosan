@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KosUserRepository extends JpaRepository<KosUser, Long> {
+    KosUser findByUsername(String username);
 }

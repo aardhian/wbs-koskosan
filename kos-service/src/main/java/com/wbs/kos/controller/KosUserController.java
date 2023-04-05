@@ -26,4 +26,10 @@ public class KosUserController {
         return kosUserService.getKosUserById(userKey);
     }
 
+    @GetMapping("/username/{username}")
+    public KosUser getKosUserByUsername(@PathVariable("username") String username) {
+        log.info("Inside getKosUserByUsername Controller");
+        return kosUserService.getKosUserByUsername(username);
+    }
+
 }

@@ -21,10 +21,19 @@ public class KosUserServiceImpl implements KosUserService {
         log.info("Inside saveKosUser Service");
         return kosUserRepository.save(kosUser);
     }
-
+    @Override
     public KosUser getKosUserById(Long userKey) {
         log.info("Inside getKosUserById Service");
         KosUser kosUser = kosUserRepository.findById(userKey).get();
+        KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestById(kosUser.getGuestKey());
+        kosUser.setKosGuestDto(kosGuestDto);
+        return kosUser;
+    }
+
+    @Override
+    public KosUser getKosUserByUsername(String username) {
+        log.info("Inside getKosUserByUsername Service");
+        KosUser kosUser = kosUserRepository.findByUsername(username);
         KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestById(kosUser.getGuestKey());
         kosUser.setKosGuestDto(kosGuestDto);
         return kosUser;

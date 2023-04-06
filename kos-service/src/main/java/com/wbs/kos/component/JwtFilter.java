@@ -21,6 +21,7 @@ import java.util.List;
 @Component
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
+
     @Autowired
     private JwtUserDetailsService userDetailsService;
     @Autowired
@@ -39,12 +40,12 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 username = tokenManager.getUsernameFromToken(token);
             } catch (IllegalArgumentException e) {
-                System.out.println("Unable to get JWT Token");
+                log.error("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-                System.out.println("JWT Token has expired");
+                log.error("JWT Token has expired");
             }
         } else {
-            System.out.println("Bearer String not found in token");
+            log.error("Bearer String not found in token");
         }
         if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.info("SecurityContextHolder.getContext().getAuthentication() = " + tokenHeader);

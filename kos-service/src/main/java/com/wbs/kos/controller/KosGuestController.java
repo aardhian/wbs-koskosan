@@ -1,7 +1,6 @@
 package com.wbs.kos.controller;
 
 import com.wbs.kos.model.KosGuest;
-import com.wbs.kos.model.jwt.JwtRequestModel;
 import com.wbs.kos.service.KosGuestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

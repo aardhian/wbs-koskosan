@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,6 +17,8 @@ public interface KosGuestFeign {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/guests/{id}")
     public KosGuestDto getKosGuestById(@PathVariable("id") Long guestKey);
+    @RequestMapping(method = RequestMethod.GET, value = "/guests/username/{username}")
+    public KosGuestDto getKosGuestByUsername(@PathVariable("username") String username);
 
     @Component
     @Slf4j
@@ -24,6 +27,11 @@ public interface KosGuestFeign {
         @Override
         public KosGuestDto getKosGuestById(@PathVariable("id") Long guestKey) {
             log.info("Inside getKosGuestById Service Fallback");
+            return new KosGuestDto();
+        }
+
+        @Override
+        public KosGuestDto getKosGuestByUsername(@PathVariable("username") String username) {
             return new KosGuestDto();
         }
     }

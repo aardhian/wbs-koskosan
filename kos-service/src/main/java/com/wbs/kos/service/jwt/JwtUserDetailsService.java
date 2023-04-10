@@ -24,9 +24,6 @@ public class JwtUserDetailsService implements UserDetailsService {
         KosUser kosUser = kosUserRepository.findByUsernameAndActiveTrue(username);
         log.info("kosUser.username = "+kosUser.getUsername());
         if (kosUser != null && kosUser.getUsername().equals(username)) {
-            /*return new User("randomuser123",
-                    "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-                    new ArrayList<>());*/
             return new User(kosUser.getUsername(),
                     kosUser.getPassword(),
                     new ArrayList<>());

@@ -2,17 +2,15 @@ package com.wbs.kos.model;
 
 import com.wbs.kos.model.dto.KosGuestDto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"username"})})
 @AllArgsConstructor
 @NoArgsConstructor
 public class KosUser {

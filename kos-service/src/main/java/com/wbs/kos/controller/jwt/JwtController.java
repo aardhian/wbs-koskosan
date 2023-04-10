@@ -1,6 +1,10 @@
 package com.wbs.kos.controller.jwt;
 
 import com.wbs.kos.component.TokenManager;
+import com.wbs.kos.feign.KosGuestFeign;
+import com.wbs.kos.model.KosGuest;
+import com.wbs.kos.model.dto.KosGuestDto;
+import com.wbs.kos.model.dto.LoggedInUser;
 import com.wbs.kos.model.jwt.JwtRequestModel;
 import com.wbs.kos.model.jwt.JwtResponseModel;
 import com.wbs.kos.service.jwt.JwtUserDetailsService;
@@ -27,6 +31,8 @@ public class JwtController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private TokenManager tokenManager;
+    @Autowired
+    private KosGuestFeign kosGuestFeign;
     @PostMapping("/login")
     public ResponseEntity createToken(@RequestBody JwtRequestModel
                                                 request) throws Exception {
@@ -44,6 +50,8 @@ public class JwtController {
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         final String jwtToken = tokenManager.generateJwtToken(userDetails);
-        return ResponseEntity.ok(new JwtResponseModel(jwtToken));
+        log.info("Token Generated: "+jwtToken);
+        LoggedInUser loggedInUser = new LoggedInUser(request.getUsername(), "");
+        return ResponseEntity.ok(new JwtResponseModel(jwtToken, loggedInUser));
     }
 }

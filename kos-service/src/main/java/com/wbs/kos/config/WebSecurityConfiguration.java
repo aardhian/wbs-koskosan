@@ -55,8 +55,10 @@ public class WebSecurityConfiguration {
             // Actuators
             "/actuator/**",
             "/health/**",
-            "/login",
-            "/users/register"
+            "/api/v1/token/login",
+            "/api/v1/token/verify",
+            "/api/v1/token/refresh",
+            "/api/v1/users/register"
     };
 
     @Bean

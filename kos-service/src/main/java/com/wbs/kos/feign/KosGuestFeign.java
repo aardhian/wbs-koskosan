@@ -15,9 +15,9 @@ public interface KosGuestFeign {
     /*
      * These request mapping are getting from KosGuestController
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/guests/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/v1/guests/{id}")
     public KosGuestDto getKosGuestById(@PathVariable("id") Long guestKey);
-    @RequestMapping(method = RequestMethod.GET, value = "/guests/username/{username}")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/v1/guests/username/{username}")
     public KosGuestDto getKosGuestByUsername(@PathVariable("username") String username);
 
     @Component

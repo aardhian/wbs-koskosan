@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/guests")
+@RequestMapping("/api/v1/guests")
 @Slf4j
 public class KosGuestController{
     @Autowired

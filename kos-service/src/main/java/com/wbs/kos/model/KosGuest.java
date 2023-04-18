@@ -20,6 +20,9 @@ public class KosGuest {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long guestKey;
     private String name;
+    private String firstName;
+    private String lastName;
+    private String cellphone;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date birthday;
 }

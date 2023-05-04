@@ -6,14 +6,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames = {"username"})})
 @AllArgsConstructor
 @NoArgsConstructor
-public class KosUser {
+public class KosUser{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userKey;
@@ -21,6 +20,11 @@ public class KosUser {
     private String password;
     private Boolean active;
     private Long guestKey;
+
+    @ManyToOne
+    @JoinColumn(name = "account_key")
+    private KosAccount kosAccount;
+
     @Transient
     private KosGuestDto kosGuestDto;
 }

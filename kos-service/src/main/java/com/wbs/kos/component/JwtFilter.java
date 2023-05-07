@@ -1,5 +1,6 @@
 package com.wbs.kos.component;
 
+import com.wbs.kos.model.jwt.JwtUserDetails;
 import com.wbs.kos.service.jwt.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -49,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.info("SecurityContextHolder.getContext().getAuthentication() = " + tokenHeader);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            JwtUserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (tokenManager.validateJwtToken(token, userDetails)) {
                 log.info("before validateJwtToken = "+username);
                 UsernamePasswordAuthenticationToken

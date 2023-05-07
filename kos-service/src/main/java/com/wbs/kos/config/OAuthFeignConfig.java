@@ -1,6 +1,8 @@
 package com.wbs.kos.config;
 
 import com.wbs.kos.component.TokenManager;
+import com.wbs.kos.model.jwt.JwtUser;
+import com.wbs.kos.model.jwt.JwtUserDetails;
 import com.wbs.kos.service.jwt.JwtUserDetailsService;
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,12 +34,12 @@ public class OAuthFeignConfig {
             log.info("Inside RequestInterceptor->requestTemplate OAuthFeignConfig = "+authentication.getDetails());
             if (authentication != null && authentication.isAuthenticated()) {
                 UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-                User user = (User)token.getPrincipal();
+                JwtUser user = (JwtUser)token.getPrincipal();
 
                 log.info("Inside RequestInterceptor->requestTemplate OAuthFeignConfig USER = "+user.getUsername());
                 log.info("Inside RequestInterceptor->requestTemplate OAuthFeignConfig PASSWORD = "+user.getPassword());
 
-                final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+                final JwtUserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
                 final String jwtToken = tokenManager.generateJwtToken(userDetails);
 
                 log.info("Inside RequestInterceptor->requestTemplate OAuthFeignConfig TOKEN = "+jwtToken);

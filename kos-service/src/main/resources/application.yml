@@ -1,6 +1,6 @@
 client:
   post:
-    baseUrl: http://localhost
+    baseUrl: http://mb1.kosbarokah.com
 server:
   port: 8091
 spring:

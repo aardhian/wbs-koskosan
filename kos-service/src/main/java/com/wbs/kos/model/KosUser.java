@@ -1,5 +1,6 @@
 package com.wbs.kos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.wbs.kos.model.dto.KosGuestDto;
 
 import jakarta.persistence.*;
@@ -20,7 +21,10 @@ public class KosUser {
     private String username;
     private String password;
     private Boolean active;
-    private Long guestKey;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "guest_key")
+    @JsonBackReference
+    private KosGuest guestKey;
     @Transient
     private KosGuestDto kosGuestDto;
 }

@@ -24,6 +24,7 @@ feign:
         loggerLevel: FULL
 secret:
   InthispackagewcreateourfirstclasscalledTokenManagerThisclasswillberesponsibleforthecreationandvalidationoftokensusingiojsonwebtokenJwts
+jwtExpirationMs: 36000
 logging:
   level:
     root: INFO
@@ -38,4 +39,3 @@ logging:
       file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz # by date
       max-file-size: 10MB
       max-history: 20
-  

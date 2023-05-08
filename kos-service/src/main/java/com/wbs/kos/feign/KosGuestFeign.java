@@ -2,6 +2,7 @@ package com.wbs.kos.feign;
 
 import com.wbs.kos.config.OAuthFeignConfig;
 import com.wbs.kos.model.dto.KosGuestDto;
+import feign.Headers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -15,9 +16,15 @@ public interface KosGuestFeign {
     /*
      * These request mapping are getting from KosGuestController
      */
+    String AUTH_TOKEN = "Authorization";
     @RequestMapping(method = RequestMethod.GET, value = "/api/v1/guests/{id}")
+    @Headers("Content-Type: application/json")
     public KosGuestDto getKosGuestById(@PathVariable("id") Long guestKey);
+    @RequestMapping(method = RequestMethod.GET, value = "/api/v1/guests/token/{id}")
+    @Headers("Content-Type: application/json")
+    public KosGuestDto getKosGuestTokenById(@RequestHeader(AUTH_TOKEN) String bearerToken, @PathVariable("id") Long guestKey);
     @RequestMapping(method = RequestMethod.GET, value = "/api/v1/guests/username/{username}")
+    @Headers("Content-Type: application/json")
     public KosGuestDto getKosGuestByUsername(@PathVariable("username") String username);
 
     @Component
@@ -26,6 +33,12 @@ public interface KosGuestFeign {
 
         @Override
         public KosGuestDto getKosGuestById(@PathVariable("id") Long guestKey) {
+            log.info("Inside getKosGuestById Service Fallback");
+            return new KosGuestDto();
+        }
+
+        @Override
+        public KosGuestDto getKosGuestTokenById(@RequestHeader(AUTH_TOKEN) String bearerToken, @PathVariable("id") Long guestKey) {
             log.info("Inside getKosGuestById Service Fallback");
             return new KosGuestDto();
         }

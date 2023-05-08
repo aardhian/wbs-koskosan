@@ -13,6 +13,8 @@ public class KosGuestController{
     @Autowired
     private KosGuestService kosGuestService;
 
+    final String AUTH_TOKEN = "Authorization";
+
     @PostMapping("/")
     public KosGuest saveKosGuest(@RequestBody KosGuest kosGuest) {
         log.info("Inside saveKosGuest Controller");
@@ -21,6 +23,12 @@ public class KosGuestController{
 
     @GetMapping("/{id}")
     public KosGuest getKosGuestById(@PathVariable("id") Long guestKey) {
+        log.info("Inside getKosGuestById Controller");
+        return kosGuestService.getKosGuestById(guestKey);
+    }
+
+    @GetMapping("/token/{id}")
+    public KosGuest getKosGuestTokenById(@RequestHeader(AUTH_TOKEN) String bearerToken, @PathVariable("id") Long guestKey) {
         log.info("Inside getKosGuestById Controller");
         return kosGuestService.getKosGuestById(guestKey);
     }

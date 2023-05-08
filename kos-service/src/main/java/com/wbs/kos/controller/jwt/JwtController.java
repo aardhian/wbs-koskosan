@@ -2,12 +2,14 @@ package com.wbs.kos.controller.jwt;
 
 import com.wbs.kos.component.TokenManager;
 import com.wbs.kos.feign.KosGuestFeign;
+import com.wbs.kos.model.KosUser;
 import com.wbs.kos.model.dto.KosGuestDto;
 import com.wbs.kos.model.dto.LoggedInUser;
 import com.wbs.kos.model.jwt.JwtLoginRequestModel;
 import com.wbs.kos.model.jwt.JwtLoginResponseModel;
 import com.wbs.kos.model.jwt.JwtRequestVerifyModel;
 import com.wbs.kos.model.jwt.JwtUserDetails;
+import com.wbs.kos.service.KosUserService;
 import com.wbs.kos.service.jwt.JwtUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class JwtController {
     private TokenManager tokenManager;
     @Autowired
     private KosGuestFeign kosGuestFeign;
+    @Autowired
+    private KosUserService kosUserService;
     
     @PostMapping("/login")
     public ResponseEntity createToken(@RequestBody JwtLoginRequestModel
@@ -53,12 +57,16 @@ public class JwtController {
         log.info("Token Generated: "+jwtToken);
         LoggedInUser loggedInUser = new LoggedInUser(request.getUsername(), "");
         JwtLoginResponseModel jwtLoginResponseModel = new JwtLoginResponseModel(jwtToken, loggedInUser);
-        KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestByUsername(request.getUsername());
+
+        KosUser kosUser = kosUserService.getKosUserByUsername(userDetails.getUsername());
+        //KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestTokenById(jwtToken, kosUser.getGuestKey().getGuestKey());
+        KosGuestDto kosGuestDto = new KosGuestDto();
+        kosGuestDto.setGuestKey(kosUser.getGuestKey().getGuestKey());
         if(kosGuestDto != null) {
             jwtLoginResponseModel.setId(kosGuestDto.getGuestKey());
-            jwtLoginResponseModel.setFirstName(kosGuestDto.getName());
-            jwtLoginResponseModel.setEmail(request.getUsername());
-            jwtLoginResponseModel.setCellphone(kosGuestDto.getCellphone());
+//            jwtLoginResponseModel.setFirstName(kosGuestDto.getName());
+//            jwtLoginResponseModel.setEmail(request.getUsername());
+//            jwtLoginResponseModel.setCellphone(kosGuestDto.getCellphone());
         }
         return ResponseEntity.ok(jwtLoginResponseModel);
     }

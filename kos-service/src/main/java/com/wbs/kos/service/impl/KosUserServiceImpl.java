@@ -25,7 +25,7 @@ public class KosUserServiceImpl implements KosUserService {
     public KosUser getKosUserById(Long userKey) {
         log.info("Inside getKosUserById Service");
         KosUser kosUser = kosUserRepository.findById(userKey).get();
-        KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestById(kosUser.getGuestKey());
+        KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestById(kosUser.getGuestKey().getGuestKey());
         kosUser.setKosGuestDto(kosGuestDto);
         return kosUser;
     }
@@ -34,7 +34,7 @@ public class KosUserServiceImpl implements KosUserService {
     public KosUser getKosUserByUsername(String username) {
         log.info("Inside getKosUserByUsername Service");
         KosUser kosUser = kosUserRepository.findByUsernameAndActiveTrue(username);
-        KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestById(kosUser.getGuestKey());
+        KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestById(kosUser.getGuestKey().getGuestKey());
         kosUser.setKosGuestDto(kosGuestDto);
         return kosUser;
     }

@@ -21,6 +21,9 @@ public class JwtLoginResponseModel implements Serializable {
     public JwtLoginResponseModel(String token, LoggedInUser loggedInUser) {
         this.token = token;
         this.loggedInUser = loggedInUser;
+        this.email = loggedInUser.getUserId();
+        this.accessToken = token;
+        this.refreshToken = token;
     }
     public String getToken() {
         return token;

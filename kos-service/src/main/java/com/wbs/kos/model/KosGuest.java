@@ -29,4 +29,7 @@ public class KosGuest {
     @OneToMany(mappedBy = "guestKey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<KosUser> kosUsers = new ArrayList<KosUser>();
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "kosGuests")
+    private List<KosRoom> kosRooms = new ArrayList<KosRoom>();
 }

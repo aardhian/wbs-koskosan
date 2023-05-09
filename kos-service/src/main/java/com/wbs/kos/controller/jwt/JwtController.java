@@ -59,15 +59,14 @@ public class JwtController {
         JwtLoginResponseModel jwtLoginResponseModel = new JwtLoginResponseModel(jwtToken, loggedInUser);
 
         KosUser kosUser = kosUserService.getKosUserByUsername(userDetails.getUsername());
-        //KosGuestDto kosGuestDto = kosGuestFeign.getKosGuestTokenById(jwtToken, kosUser.getGuestKey().getGuestKey());
-        KosGuestDto kosGuestDto = new KosGuestDto();
-        kosGuestDto.setGuestKey(kosUser.getGuestKey().getGuestKey());
-        if(kosGuestDto != null) {
-            jwtLoginResponseModel.setId(kosGuestDto.getGuestKey());
-//            jwtLoginResponseModel.setFirstName(kosGuestDto.getName());
-//            jwtLoginResponseModel.setEmail(request.getUsername());
-//            jwtLoginResponseModel.setCellphone(kosGuestDto.getCellphone());
-        }
+
+        jwtLoginResponseModel.setId(kosUser.getGuestKey().getGuestKey());
+        jwtLoginResponseModel.setFirstName(kosUser.getGuestKey().getName());
+        jwtLoginResponseModel.setBirthday(kosUser.getGuestKey().getBirthday());
+        jwtLoginResponseModel.setFirstName(kosUser.getGuestKey().getFirstName());
+        jwtLoginResponseModel.setEmail(loggedInUser.getUserId());
+        jwtLoginResponseModel.setCellphone(kosUser.getGuestKey().getCellphone());
+
         return ResponseEntity.ok(jwtLoginResponseModel);
     }
     @PostMapping("/verify")
